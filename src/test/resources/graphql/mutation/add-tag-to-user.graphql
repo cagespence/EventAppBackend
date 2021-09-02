@@ -1,0 +1,12 @@
+mutation ($tagIds: [Int!], $userId: Int!) {
+    addInterest(tags: {tagIds: $tagIds}, userId: $userId) {
+        id
+        tag {
+            id
+            name
+        }
+        user {
+            id
+        }
+    }
+}

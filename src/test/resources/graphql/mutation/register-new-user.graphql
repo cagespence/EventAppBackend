@@ -1,0 +1,8 @@
+mutation {
+    createUser(name: "test", bio: "", dob: "1999-01-01", authProvider: {email: "newUserTest@test.test", password: "password123"}) {
+        id
+        dob
+        email
+        name
+    }
+}

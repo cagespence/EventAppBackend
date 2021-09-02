@@ -1,0 +1,23 @@
+mutation ($eventId: Int!){
+    updateEvent(
+        eventId: $eventId,
+        address: "updated-address",
+        date: "2002-10-20",
+        description: "updated-description",
+        endTime: "03:00",
+        startTime: "02:00",
+        imageUrl: "image-url",
+        tags: {tagIds: []},
+        title: "updated-title"
+    ) {
+        id,
+        address,
+        date,
+        description,
+        host {
+            id
+            email
+        },
+        title
+    }
+}

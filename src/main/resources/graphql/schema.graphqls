@@ -1,0 +1,149 @@
+type User {
+    id: ID!,
+    name: String!,
+    dob: String!,
+    bio: String,
+    email: String!
+    favorites: [Favorite]
+    interests: [Interest]
+    attended: [Attendee]
+}
+
+type EventInfo {
+    event: Event!,
+    isAttending: Boolean,
+    isLiked: Boolean,
+    isHost: Boolean
+}
+
+type Event {
+    id: ID!,
+    title: String!,
+    description: String!,
+    startTime: String!,
+    endTime: String!,
+    date: String!,
+    host: User!,
+    favorites: [Favorite],
+    comments: [Comment],
+    tags: [Tag],
+    attendees: [Attendee]
+    address: String!,
+    imageUrl: String!
+}
+
+type Favorite {
+    id: ID!,
+    user: User!,
+    event: Event!
+}
+
+type Tag {
+    id: ID!,
+    name: String!,
+    #    users: [User],
+    events: [Event]
+}
+
+type Interest {
+    id: ID!,
+    user: User!
+    tag: Tag!
+}
+
+type Comment {
+    id: ID!,
+    content: String!,
+    author: User!,
+    event: Event!,
+    createdAt: String!
+}
+
+type Attendee {
+    id: ID!,
+    user: User!,
+    event: Event!
+}
+
+input TagIds {
+    tagIds: [Int]
+}
+
+# test for query
+type Query {
+    # Look for a user by a given user ID.
+    user(id: ID): User
+
+    # Look for an event by a given event ID.
+    event(id: ID): EventInfo
+
+    # Look for a favorite by a given favorite ID.
+    favorite(id: ID): Favorite
+
+    # Look for a tag by a given tag ID.
+    tag(id: ID): Tag
+
+    # Look for an interest (tag belonging to a user) by it's ID.
+    interest(id: ID): Interest
+
+    # Get all tags in the system.
+     tags: [Tag]
+
+    # Get comment by a given comment ID.
+    comment(id: ID): Comment
+
+    # Get events.
+    events(filter: TagIds, paginationPage: Int, paginationAmount: Int): [EventInfo]
+
+    # Checks if email is available to register with.
+    isEmailAvailable(email: String!): Boolean
+}
+
+
+input AuthData {
+    email: String!
+    password: String!
+}
+
+type SigninPayload {
+    token: String
+    user: User
+}
+
+# Mutations for the application (as it would be POST/PUT/DELETE for a REST API).
+type Mutation {
+    # Create a user.
+    createUser(name: String!, dob: String!, bio: String, authProvider: AuthData!): User
+
+    # Sign user in.
+    signInUser(auth: AuthData): SigninPayload
+
+    # Create an event.
+    createEvent(title: String!, description: String, address: String, imageUrl: String, date: String, host: Int, startTime: String, endTime: String, tags: TagIds): Event
+
+    # Remove an event.
+    removeEvent(userId: Int, eventId: Int): Boolean
+
+    # Create a comment on an event.
+    createComment(userId: Int!, eventId: Int!, comment: String!): Comment
+
+    # Create an attendee of an event.
+    createAttendee(userId: Int, eventId: Int): Attendee
+
+    # Unattend an event.
+    removeAttendee(userId: Int, eventId: Int): Boolean
+
+    # Add an interest (tag) to a user.
+    addInterest(userId: Int, tags: TagIds): [Interest]
+
+    # Add a favorite to an event from a user.
+    addFavorite(userId: Int, eventId: Int): Favorite
+
+    # Remove a favorite from an event from a user.
+    removeFavorite(userId: Int, eventId: Int): Boolean
+
+
+    # Edit an existing event.
+    # eventId: Int, title: String, description: String, address: String, imageUrl: String, date: String, host: Int, startTime: String, endTime: String, tags: Tags
+    updateEvent(eventId: Int, title: String!, description: String, address: String, imageUrl: String, date: String, startTime: String, endTime: String, tags: TagIds): Event
+}

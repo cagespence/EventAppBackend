@@ -1,0 +1,29 @@
+mutation ($host: Int!){
+    createEvent(
+        address: "test-address",
+        date: "2000-10-20",
+        description: "test-description",
+        endTime: "03:00",
+        startTime: "02:00",
+        host: $host,
+        imageUrl: "image-url",
+        tags: {tagIds: []},
+        title: "test-title"
+    ) {
+        id,
+        address,
+        date,
+        description,
+        endTime,
+        startTime,
+        host {
+            id
+            email
+        },
+        imageUrl,
+        tags {
+            id
+        },
+        title
+    }
+}

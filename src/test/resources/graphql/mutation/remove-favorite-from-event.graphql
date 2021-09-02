@@ -1,0 +1,3 @@
+mutation ($userId: Int!, $eventId: Int!){
+    removeFavorite(userId: $userId, eventId: $eventId)
+}

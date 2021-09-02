@@ -1,0 +1,13 @@
+mutation ($userId: Int!, $eventId: Int!, $comment: String!) {
+    createComment(userId: $userId, eventId: $eventId, comment: $comment) {
+        author {
+            id
+        }
+        event {
+            id
+        }
+        content
+        createdAt
+    }
+}
+

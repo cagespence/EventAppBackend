@@ -1,0 +1,3 @@
+mutation ($userId: Int!, $eventId: Int!){
+    removeEvent(userId: $userId, eventId: $eventId)
+}

@@ -1,0 +1,11 @@
+mutation ($userId: Int!, $eventId: Int!){
+    addFavorite(userId: $userId, eventId: $eventId){
+        event {
+            id
+        }
+        user {
+            id
+        }
+        id
+    }
+}

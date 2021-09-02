@@ -1,0 +1,6 @@
+query ($tagId: ID!) {
+    tag(id: $tagId) {
+        id
+        name
+    }
+}
