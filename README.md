@@ -1,4 +1,4 @@
-# Assignment 4 Backend
+# Event App Backend
 
 This is the backend for our Event app - an application that allows users to find events based on their interests.
 
